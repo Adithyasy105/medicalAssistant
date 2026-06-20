@@ -1,0 +1,25 @@
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments and API keys
+.env
+.env.*
+server/.env
+
+# IDE and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Documentation files (ignore all .md files except README.md)
+*.md
+!README.md

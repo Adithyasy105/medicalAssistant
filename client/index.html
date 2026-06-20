@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>MedAssist AI - Medical Assistant</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f7f9ff",
+                    "surface-bright": "#f7f9ff",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#7df4ff",
+                    "tertiary-container": "#006a71",
+                    "surface-container-low": "#eef4fd",
+                    "tertiary": "#005055",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#00468c",
+                    "secondary-fixed": "#dbe3eb",
+                    "on-primary-fixed": "#001b3d",
+                    "on-secondary-fixed": "#151d22",
+                    "outline": "#727783",
+                    "on-secondary-container": "#5d656c",
+                    "on-tertiary-fixed-variant": "#004f54",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#dbe3eb",
+                    "on-secondary-fixed-variant": "#40484e",
+                    "on-surface": "#161c23",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "tertiary-fixed-dim": "#5dd8e2",
+                    "secondary-fixed-dim": "#bfc7cf",
+                    "surface-container": "#e9eef7",
+                    "primary-container": "#005eb8",
+                    "error": "#ba1a1a",
+                    "secondary": "#575f66",
+                    "surface-tint": "#005db6",
+                    "inverse-primary": "#a9c7ff",
+                    "outline-variant": "#c2c6d4",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#dde3ec",
+                    "surface-dim": "#d5dae3",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#161c23",
+                    "primary-fixed": "#d6e3ff",
+                    "surface-container-high": "#e3e8f2",
+                    "on-surface-variant": "#424752",
+                    "surface": "#f7f9ff",
+                    "on-primary-container": "#c8daff",
+                    "primary": "#00478d",
+                    "inverse-on-surface": "#ecf1fa",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-container": "#73ecf6",
+                    "on-tertiary-fixed": "#002022",
+                    "inverse-surface": "#2b3138",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#dde3ec"
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #424752; }
+        .loading-dot { animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        * { transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+        body { min-height: 100vh; }
+        
+        /* Markdown Styling */
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+        .prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
+        .prose table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.85rem; }
+        .prose th, .prose td { border: 1px solid #cbd5e1; padding: 0.5rem; text-align: left; }
+        .dark .prose th, .dark .prose td { border-color: #334155; }
+        .prose th { background: #f1f5f9; }
+        .dark .prose th { background: #1e293b; }
+        .prose p { margin-bottom: 0.75rem; }
+        .prose h3 { font-weight: bold; font-size: 1rem; margin-top: 1rem; color: #00478d; }
+        .dark .prose h3 { color: #a9c7ff; }
+        .prose strong { font-weight: 800; color: #161c23; }
+        .dark .prose strong { color: #ffffff; }
+    </style>
+</head>
+<body class="bg-background dark:bg-[#0b1016] font-inter text-on-background dark:text-on-surface-variant min-h-screen flex overflow-hidden">
+
+    <!-- NavigationDrawer -->
+    <aside class="fixed left-0 top-0 h-full flex flex-col pt-20 pb-4 bg-slate-50 dark:bg-[#111820] border-r border-slate-200 dark:border-slate-800 w-72 z-40 transition-colors">
+        <div class="px-6 mb-8 flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden bg-primary-fixed dark:bg-primary/20 flex items-center justify-center">
+                <img alt="User" class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name=Dr+Smith&background=00478d&color=fff"/>
+            </div>
+            <div>
+                <h4 class="font-bold text-on-surface dark:text-white text-sm">Dr. Julian Smith</h4>
+                <p class="text-xs text-secondary dark:text-slate-400">Chief Resident</p>
+                <span class="text-[10px] bg-primary-fixed dark:bg-primary/30 text-on-primary-fixed dark:text-primary-fixed-dim px-1.5 py-0.5 rounded mt-1 inline-block">Medical ID: 8829</span>
+            </div>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-1">
+            <a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-50 dark:bg-primary/10 text-blue-700 dark:text-blue-400 border-r-2 border-blue-700 dark:border-blue-400 font-semibold" href="#">
+                <span class="material-symbols-outlined">chat_bubble</span>
+                <span class="text-sm">Medical Chat</span>
+            </a>
+        </nav>
+
+        <div class="mx-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1a212a] shadow-sm mt-auto">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-sm">cloud_upload</span>
+                <span class="text-xs font-bold uppercase tracking-wider">Quick Upload</span>
+            </div>
+            <p class="text-[11px] text-secondary dark:text-slate-400 mb-3 leading-tight">Upload PDFs for AI analysis.</p>
+            <input type="file" id="file-input" class="hidden" multiple accept=".pdf"/>
+            <button id="upload-btn" class="w-full py-2 bg-primary text-white rounded-lg text-xs font-semibold hover:opacity-90 transition-opacity">
+                Select Files
+            </button>
+            <div id="upload-status" class="mt-2 text-[10px] text-center hidden"></div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen ml-72 relative">
+        <!-- TopAppBar -->
+        <header class="flex justify-between items-center w-full px-6 h-16 bg-white dark:bg-[#111820] border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-blue-700 dark:text-blue-400 text-2xl">medical_services</span>
+                <h1 class="text-xl font-bold text-blue-700 dark:text-blue-400 tracking-tight font-manrope">MedAssist AI</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400">
+                    <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                </button>
+                <div class="flex items-center gap-2 px-3 py-1.5 bg-tertiary-fixed/30 dark:bg-tertiary/20 rounded-full">
+                    <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                    <span class="text-xs font-medium text-tertiary dark:text-tertiary-fixed-dim">System Online</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Chat Area -->
+        <section id="chat-container" class="flex-1 overflow-y-auto custom-scrollbar bg-background dark:bg-[#0b1016]">
+            <div id="messages" class="max-w-[1000px] mx-auto px-6 py-10 space-y-6">
+                <!-- Initial Message -->
+                <div class="flex justify-center mb-8">
+                    <div class="bg-surface-container-high/50 dark:bg-slate-800/40 backdrop-blur-sm px-4 py-2 rounded-full border border-outline-variant/30">
+                        <p class="text-[12px] text-on-surface-variant dark:text-slate-400 font-medium">MediBot is ready. Upload a PDF to start analysis.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Input Section -->
+        <footer class="p-6 bg-white dark:bg-[#111820] border-t border-slate-200 dark:border-slate-800">
+            <div class="max-w-[1000px] mx-auto flex flex-col gap-4">
+                <div class="relative flex items-center">
+                    <textarea id="user-input" class="w-full pl-6 pr-14 py-4 bg-white dark:bg-[#1a212a] border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none shadow-sm" placeholder="Ask MedAssist AI for diagnostic help..." rows="1"></textarea>
+                    <button id="send-btn" class="absolute right-4 bg-primary text-white p-2 rounded-lg hover:opacity-90 transition-opacity">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+                <p class="text-[10px] text-center text-slate-400">MedAssist AI can make mistakes. Verify clinical decisions with medical standards.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Side Panel -->
+    <aside class="hidden xl:flex flex-col w-80 bg-white dark:bg-[#111820] border-l border-slate-200 dark:border-slate-800 p-6 overflow-y-auto custom-scrollbar">
+        <h3 class="font-bold text-on-surface dark:text-white text-lg mb-6">Document Vault</h3>
+        <div id="file-list" class="space-y-3">
+            <p class="text-xs text-secondary italic">No documents uploaded yet.</p>
+        </div>
+        <div class="mt-8 p-5 rounded-2xl bg-gradient-to-br from-primary to-blue-600 text-white">
+            <span class="material-symbols-outlined text-2xl mb-2 opacity-80">auto_awesome</span>
+            <h4 class="font-bold text-sm mb-2">Proactive Discovery</h4>
+            <p class="text-xs opacity-90 leading-relaxed">Our AI helps identify clinical patterns across your uploaded records.</p>
+        </div>
+    </aside>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
