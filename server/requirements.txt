@@ -10,7 +10,7 @@ langchain-core
 langchain-google-genai
 
 # Vectorstore
-pinecone-client  # Updated to official pinecone client
+pinecone  # Updated to official pinecone client
 
 # Tokenization & Embeddings (Elite RAG Features)
 sentence-transformers  # For local Bi-Encoder & Cross-Encoder
