@@ -37,5 +37,9 @@ app.mount("/static", StaticFiles(directory=static_dir), name="static")
 async def read_index():
     return FileResponse(os.path.join(static_dir, "index.html"))
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
 # middleware exception handlers
 app.middleware("http")(catch_exception_middleware)
