@@ -67,7 +67,6 @@ async def ask_question(request: QuestionRequest):
         if not res["matches"]:
             logger.warning("[FALLBACK] No chunks found in Pinecone.")
             return {"answer": "No relevant information found in the uploaded document.", "confidence": 0, "sources": []}
-
         # 🌟 ELITE UPGRADE 4: Re-Ranking Layer
         logger.info("[RE-RANK] Scoring 15 chunks with Cross-Encoder...")
         cross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')

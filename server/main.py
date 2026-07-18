@@ -13,11 +13,13 @@ import os
 
 app=FastAPI(title="Medical Assistant API",description="API for AI Medical Assistant Chatbot")
 
-# CORS Setup
+# CORS Setup - Read from env or default to localhost for security
+origins = os.getenv("CORS_ORIGINS", "http://localhost:8000,http://localhost").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=["*"],
+    allow_origins=origins,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
 )

@@ -1,5 +1,6 @@
 import os
 import time
+import uuid
 from pathlib import Path
 from dotenv import load_dotenv
 from tqdm.auto import tqdm
@@ -12,7 +13,8 @@ import re
 
 load_dotenv()
 
-UPLOAD_DIR = "./uploaded_docs"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+UPLOAD_DIR = os.path.join(BASE_DIR, "uploaded_docs")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 def get_pinecone_index():
@@ -94,7 +96,14 @@ def load_vectorstore(uploaded_files):
     
     file_paths = []
     for file in uploaded_files:
-        save_path = Path(UPLOAD_DIR) / file.filename
+        safe_filename = os.path.basename(file.filename)
+        unique_filename = f"{uuid.uuid4().hex}_{safe_filename}"
+        save_path = Path(UPLOAD_DIR) / unique_filename
+        
+        # Ensure it is strictly inside UPLOAD_DIR
+        if not os.path.abspath(save_path).startswith(os.path.abspath(UPLOAD_DIR)):
+             raise ValueError("Invalid file path")
+             
         with open(save_path, "wb") as f:
             f.write(file.file.read())
         file_paths.append(str(save_path))
