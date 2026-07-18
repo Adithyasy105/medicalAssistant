@@ -4,10 +4,10 @@ uvicorn[standard]
 python-multipart  # for file uploads
 
 # LangChain & Ecosystem
-langchain
-langchain-community
-langchain-core
-langchain-google-genai
+langchain==0.2.14
+langchain-community==0.2.12
+langchain-core==0.2.32
+langchain-google-genai==1.0.8
 
 # Vectorstore
 pinecone  # Updated to official pinecone client
