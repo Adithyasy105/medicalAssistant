@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY server/requirements.txt /app/server/requirements.txt
 
 # Install python dependencies
-RUN pip install --no-cache-dir -r server/requirements.txt
+RUN pip install --no-cache-dir -r server/requirements.txt && pip uninstall -y pinecone-client || true
 
 # Copy the entire project (server and client)
 COPY . /app/
